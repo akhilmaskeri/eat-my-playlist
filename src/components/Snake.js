@@ -2,7 +2,7 @@ import {  useEffect, useState } from 'react';
 import SnakeHead from './SnakeHead'
 import SnakeBody from './SnakeBody';
 
-const Snake = ({direction, paused, height, width, x, y, fx, fy, eat, resetFood, isGameOver, setIsGameOver}) => {
+const Snake = ({direction, setCurrentDirection, paused, height, width, x, y, fx, fy, eat, resetFood, isGameOver, setIsGameOver}) => {
 
     // const [height, setHeight] = useState(20);
     // const [width, setWidth] = useState(20);
@@ -77,10 +77,12 @@ const Snake = ({direction, paused, height, width, x, y, fx, fy, eat, resetFood, 
             if(direction === 'right'){
                 setDirX(1);
                 setDirY(0);
+                setCurrentDirection('right');
             }
             if(direction === 'left'){
                 setDirX(-1);
                 setDirY(0);
+                setCurrentDirection('left');
             }
         }
 
@@ -88,10 +90,12 @@ const Snake = ({direction, paused, height, width, x, y, fx, fy, eat, resetFood, 
             if(direction === 'up'){
                 setDirY(-1);
                 setDirX(0);
+                setCurrentDirection('up');
             }
             if(direction === 'down'){
                 setDirY(1);
                 setDirX(0);
+                setCurrentDirection('down');
             }
         }
     }, [direction]);
@@ -117,6 +121,7 @@ const Snake = ({direction, paused, height, width, x, y, fx, fy, eat, resetFood, 
                 width={width} 
                 x={positions[0].x} 
                 y={positions[0].y}
+                direction={direction}
             />
             
             {Body()}

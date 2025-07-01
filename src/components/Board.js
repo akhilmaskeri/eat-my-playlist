@@ -5,6 +5,7 @@ import Food from "./Food";
 const Board = () => {
 
     const [direction, setDirection] = useState();
+    const [currentDirection, setCurrentDirection] = useState();
     const [paused, setPaused] = useState();
 
     const [player, setPlayer] = useState(null);
@@ -26,16 +27,16 @@ const Board = () => {
     
     useEffect(() => {
         const handleKeyPress = (event) => {
-            if(event.key === 'ArrowRight'){
+            if(event.key === 'ArrowRight' && currentDirection !== 'left'){
                 setDirection('right');
             }
-            if(event.key === 'ArrowLeft'){
+            if(event.key === 'ArrowLeft' && currentDirection !== 'right'){
                 setDirection('left');
             }
-            if(event.key === 'ArrowUp'){
+            if(event.key === 'ArrowUp' && currentDirection !== 'down'){
                 setDirection('up');
             }
-            if(event.key === 'ArrowDown'){
+            if(event.key === 'ArrowDown' && currentDirection !== 'up'){
                 setDirection('down');
             }
             if(event.key === ' '){
@@ -48,7 +49,7 @@ const Board = () => {
         return () => {
             window.removeEventListener('keydown', handleKeyPress);
         }
-    }, [])
+    }, [currentDirection])
 
     useEffect(()=> {
         if(eat === true){
@@ -82,6 +83,7 @@ const Board = () => {
 
             <Snake 
                 direction={direction} 
+                setCurrentDirection={setCurrentDirection}
 
                 height={size}
                 width={size}
