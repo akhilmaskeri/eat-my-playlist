@@ -27,6 +27,13 @@ const Board = () => {
     
     useEffect(() => {
         const handleKeyPress = (event) => {
+            if(event.key === ' '){
+                setPaused(prev => !prev);
+                return;
+            }
+
+            if(paused || isGameOver) return;
+
             if(event.key === 'ArrowRight' && currentDirection !== 'left'){
                 setDirection('right');
             }
@@ -39,9 +46,6 @@ const Board = () => {
             if(event.key === 'ArrowDown' && currentDirection !== 'up'){
                 setDirection('down');
             }
-            if(event.key === ' '){
-                setPaused(prev => !prev);
-            }
         }
 
         window.addEventListener('keydown', handleKeyPress);
@@ -49,7 +53,7 @@ const Board = () => {
         return () => {
             window.removeEventListener('keydown', handleKeyPress);
         }
-    }, [currentDirection])
+    }, [currentDirection, paused, isGameOver])
 
     useEffect(()=> {
         if(eat === true){
